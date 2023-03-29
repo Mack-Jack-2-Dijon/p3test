@@ -1,0 +1,51 @@
+<form (ngSubmit)="onSubmit"  #myForm="ngForm">
+  <div>
+    Form submitted ? {{myForm.submitted}}
+    Form valid ? {{myForm.valid}}
+    Form invalid ? {{myForm.invalid}}
+  </div>
+  <label>
+    Nom :
+    <input type="text" formControlName="name" />
+  </label>
+  <label>
+    Prénom :
+    <input type="text" formControlName="firstName" />
+  </label>
+  <label>
+    Identifiant / CP :
+    <input type="text" formControlName="immatriculation" />
+<!-- La condition signUpForm.get('immatriculation').invalidannulée si le champ est invalide en fonction des validations qui lui ont été appliquées (par exemple, s'il est vide et qu'il est requis, ou s'il ne correspond pas au format requis). -->
+<!-- La condition (signUpForm.get('immatriculation').dirty || signUpForm.get('immatriculation').touched)permet de s'assurer que l'utilisateur interagi avec le champ, soit en y entrant une valeur, soit en y touchant (par exemple en cliquant ci-dessus), avant d'afficher les messages d'erreur. -->
+<!-- En fonction de la validation qui a échoué, les directives *ngIfcorrespondantes afficheront les messages d'erreur appropriés : "Le champ est obligatoire" si le champ est requis et vide, "Le champ doit contenir au moins 8 caractères" si le champ est trop court , "Le champ doit contenir au plus 8 caractères" si le champ est trop long, et "Le format est incorrect" si le champ ne correspond pas au format requis. -->
+    <div *ngIf="signUpForm.get('immatriculation').invalid && (signUpForm.get('immatriculation').dirty || signUpForm.get('immatriculation').touched)">
+      <div *ngIf="signUpForm.get('immatriculation').errors.required">Le champ est obligatoire</div>
+      <div *ngIf="signUpForm.get('immatriculation').errors.minlength">Le champ doit contenir au moins 8 caractères</div>
+      <div *ngIf="signUpForm.get('immatriculation').errors.maxlength">Le champ doit contenir au plus 8 caractères</div>
+      <div *ngIf="signUpForm.get('immatriculation').errors.pattern">Le format est incorrect</div>
+    </div>
+  </label>
+  <label>
+    Adresse mail :
+    <input type="email" formControlName="email" />
+  </label>
+  <label>
+    Téléphone :
+    <input type="text" formControlName="phone" />
+  </label>
+  <label>
+    Post :
+    <input type="text" formControlName="post" />
+  </label>
+  <label>
+    Mot de passe :
+    <input type="password" formControlName="password" />
+  </label>
+  <p>Votre mot de passe doit contenier 8 à 12 caractères</p>
+  <label>
+    Confirmer votre mot de passe :
+    <input type="password" formControlName="confirmPassword" />
+  </label>
+
+  <button [disabled]="!signUpForm.valid" (click)="validate()">Valider</button>
+</form>

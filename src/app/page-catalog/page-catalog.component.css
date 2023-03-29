@@ -1,0 +1,9 @@
+@media screen and (min-width: 600px) {
+  .container_product {
+    width: 60vw;
+    display: flex;
+margin-left: 120px;
+    flex-wrap: wrap;
+    gap:5px;
+  }
+}
